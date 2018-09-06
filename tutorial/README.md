@@ -10,7 +10,7 @@ Python 3.7, orientdb-3.x
 ### Queries
 - Example 1: Find the 'year of birth' of the Profiles, and how many Profiles were born in the same year
 - Example 2: Find the top 3 Profiles that have the highest number of Friends
-- Example 3: Find Colin's Friends
+- Example 3: [Find Colin's Friends](#Find-Colin's-Friends)
 - Example 4: Find Colin's friends who are also Customers
 - Example 5: Find Colin's Friends who are also Customers, and the Countries they are from
 - Example 6: Among Colin's Friends, find the top 3 Customers that placed the highest number of Orders
