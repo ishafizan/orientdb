@@ -7,6 +7,17 @@ Python 3.7, orientdb-3.x
 - note: pyorient does not support 3.0.6 yet ->“Protocol version 37 is not supported yet by this client”
 - orientDB HTTP methods http://orientdb.com/docs/3.0.x/misc/OrientDB-REST.html
 
+### Queries
+- Example 1: Find the 'year of birth' of the Profiles, and how many Profiles were born in the same year
+- Example 2: Find the top 3 Profiles that have the highest number of Friends
+- Example 3: Find Colin's Friends
+- Example 4: Find Colin's friends who are also Customers
+- Example 5: Find Colin's Friends who are also Customers, and the Countries they are from
+- Example 6: Among Colin's Friends, find the top 3 Customers that placed the highest number of Orders
+- Example 7: Find all the Friends of Customer identified with OrderedId 1 that are not Customers (so that a product can be proposed)
+- Example 8: Find the top 3 Countries from where Customers are from
+- Example 10: Find the top 3 Customers in terms of spending
+
 ### create venv
 ```
 python3 -m venv project_name
@@ -199,16 +210,6 @@ python odb_eg_5.py
 [{"Friend_RID":"#45:0","Friend_Name":"Frank","Friend_Surname":"OrientDB","Customer_RID":"#122:0","Customer_OrederedId":2,"FriendIsFrom":"Italy"},{"Friend_RID":"#41:0","Friend_Name":"Luca","Friend_Surname":"OrientDB","Customer_RID":"#123:0","Customer_OrederedId":3,"FriendIsFrom":"Italy"},{"Friend_RID":"#42:0","Friend_Name":"Luigi","Friend_Surname":"OrientDB","Customer_RID":"#124:0","Customer_OrederedId":4,"FriendIsFrom":"Italy"},{"Friend_RID":"#43:0","Friend_Name":"Santo","Friend_Surname":"OrientDB","Customer_RID":"#126:0","Customer_OrederedId":6,"FriendIsFrom":"Italy"},{"Friend_RID":"#42:1","Friend_Name":"Andrey","Friend_Surname":"OrientDB","Customer_RID":"#125:0","Customer_OrederedId":5,"FriendIsFrom":"Ukraine"}]
 ```
 
-### Example 2-4: Find Colin's Friends who are also Customers, and the Countries they are from
-```
-MATCH {Class: Profiles, as: profile, where: (Name='Santo' AND Surname='OrientDB')}-HasFriend-{Class: Profiles, as: friend}<-HasProfile-{class: Customers, as: customer}-IsFromCountry->{Class: Countries, as: country}
-RETURN $pathelements
-```
-![Alt text](img/odb_eg_2_3.png)
-```
-python odb_eg_5.py
-[{"Friend_RID":"#45:0","Friend_Name":"Frank","Friend_Surname":"OrientDB","Customer_RID":"#122:0","Customer_OrederedId":2,"FriendIsFrom":"Italy"},{"Friend_RID":"#41:0","Friend_Name":"Luca","Friend_Surname":"OrientDB","Customer_RID":"#123:0","Customer_OrederedId":3,"FriendIsFrom":"Italy"},{"Friend_RID":"#42:0","Friend_Name":"Luigi","Friend_Surname":"OrientDB","Customer_RID":"#124:0","Customer_OrederedId":4,"FriendIsFrom":"Italy"},{"Friend_RID":"#43:0","Friend_Name":"Santo","Friend_Surname":"OrientDB","Customer_RID":"#126:0","Customer_OrederedId":6,"FriendIsFrom":"Italy"},{"Friend_RID":"#42:1","Friend_Name":"Andrey","Friend_Surname":"OrientDB","Customer_RID":"#125:0","Customer_OrederedId":5,"FriendIsFrom":"Ukraine"}]
-```
 ### Example 6: Among Colin's Friends, find the top 3 Customers that placed the highest number of Orders
 ```
 SELECT
@@ -322,6 +323,38 @@ RETURN $pathelements
 ```
 python odb_eg_9.py
 [{"Friend_RID": "#45:0", "Friend_Name": "Frank", "Friend_Surname": "OrientDB", "Customer_RID": "#122:0", "Customer_OrederedId": 2, "FriendIsFrom": "Italy"}, {"Friend_RID": "#41:0", "Friend_Name": "Luca", "Friend_Surname": "OrientDB", "Customer_RID": "#123:0", "Customer_OrederedId": 3, "FriendIsFrom": "Italy"}, {"Friend_RID": "#42:0", "Friend_Name": "Luigi", "Friend_Surname": "OrientDB", "Customer_RID": "#124:0", "Customer_OrederedId": 4, "FriendIsFrom": "Italy"}, {"Friend_RID": "#43:0", "Friend_Name": "Santo", "Friend_Surname": "OrientDB", "Customer_RID": "#126:0", "Customer_OrederedId": 6, "FriendIsFrom": "Italy"}, {"Friend_RID": "#42:1", "Friend_Name": "Andrey", "Friend_Surname": "OrientDB", "Customer_RID": "#125:0", "Customer_OrederedId": 5, "FriendIsFrom": "Ukraine"}]
+```
+
+### Example 10: Find the top 3 Customers in terms of spending
+```
+SELECT
+  customer.OrderedId as customerOrderedId,
+  SUM(order.Amount) as totalAmount
+FROM (
+  MATCH {Class: Customers, as: customer}<-HasCustomer-{class: Orders, as: order}
+  RETURN customer, order
+)
+GROUP BY customerOrderedId
+ORDER BY totalAmount DESC
+LIMIT 3
+```
+
+```
+python odb_eg_10.py
+[
+  {
+    "customerOrderedId": 332,
+    "totalAmount": 4578
+  },
+  {
+    "customerOrderedId": 322,
+    "totalAmount": 4218
+  },
+  {
+    "customerOrderedId": 48,
+    "totalAmount": 4166
+  }
+]
 ```
 
 ## Author
