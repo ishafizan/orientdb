@@ -2,6 +2,7 @@
 ### Prerequisites
 Linux or Mac is recommended, and you need Python 3.6+. If you are using Windows, either setup a VM or use the Linux Subsystem
 Python 3.7, orientdb-3.x
+- demodb is the database of an hypothetical Travel Agency that runs a public social platform.
 - note: pyorient does not support 3.0.6 yet ->“Protocol version 37 is not supported yet by this client”
 
 ### create venv
