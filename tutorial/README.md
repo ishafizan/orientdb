@@ -19,6 +19,7 @@ Python 3.7, orientdb-3.x
 - Example 10: Find the top 3 Customers in terms of spending
 - Example 11: Find all Attractions connected with Customer with OrderedId: 1
 - Example 12: Find top 3 Hotels that have been booked most times
+- Example 13: Find top 3 Restaurants
 
 ### create venv
 ```
@@ -383,6 +384,35 @@ LIMIT 3
 ```
 python odb_eg_12.py
 [{"Name": "Hotel Cavallino d'Oro", "Type": "hotel", "NumberOfBookings": 7}, {"Name": "Hotel Felicyta", "Type": "hotel", "NumberOfBookings": 7}, {"Name": "Toules", "Type": "alpine_hut", "NumberOfBookings": 6}]
+```
+
+### Example 13: Find top 3 Restaurant
+```
+SELECT
+  Name, Type, in("HasEaten").size() AS VisitsNumber
+FROM Restaurants
+ORDER BY VisitsNumber DESC
+LIMIT 3
+```
+```
+python odb_eg_13.py
+[
+  {
+    "Name": "Lago di Legri",
+    "Type": "restaurant",
+    "VisitsNumber": 5
+  },
+  {
+    "Name": "Sirius",
+    "Type": "pub",
+    "VisitsNumber": 5
+  },
+  {
+    "Name": "La Fabbrico",
+    "Type": "restaurant",
+    "VisitsNumber": 5
+  }
+]
 ```
 ## Author
 * **Ishafizan Ishak**
