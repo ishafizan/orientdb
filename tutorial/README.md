@@ -18,6 +18,7 @@ Python 3.7, orientdb-3.x
 - Example 8: Find the top 3 Countries from where Customers are from
 - Example 10: Find the top 3 Customers in terms of spending
 - Example 11: Find all Attractions connected with Customer with OrderedId: 1
+- Example 12: Find top 3 Hotels that have been booked most times
 
 ### create venv
 ```
