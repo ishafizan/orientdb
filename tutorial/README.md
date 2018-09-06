@@ -296,7 +296,7 @@ LIMIT 3
 ```
 
 ```
-python odb_eg_7.py
+python odb_eg_8.py
 [
   {
     "CountryName": "Kyrgyzstan",
