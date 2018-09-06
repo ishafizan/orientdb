@@ -24,6 +24,7 @@ Python 3.7, orientdb-3.x
 - Example 15: Find the top 3 nationality of the tourists that have eaten at Restaurant with Id 26
 - Example 16: Find all Locations connected to Customer with OrderedId 1, and their Reviews (if any)
 - Example 17: Find all Locations visited by Colins's friends
+- Example 18: Find the shortest path between the Profile 'Santo' and the Country 'United States' (result: Colin)
 
 ### create venv
 ```
@@ -481,7 +482,6 @@ RETURN $pathelements
 python odb_eg_16.py
 ```
 ![Alt text](img/odb_eg_16.png)
-
 ## Author
 * **Ishafizan Ishak**
 
