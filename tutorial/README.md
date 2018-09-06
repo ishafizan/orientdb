@@ -313,6 +313,17 @@ python odb_eg_8.py
 ]
 ```
 
+### Example 2-8: Find Colins's Friends who are also Customers, and the Countries they are from
+```
+MATCH {Class: Profiles, as: profile, where: (Name='Colin' AND Surname='OrientDB')}-HasFriend-{Class: Profiles, as: friend}<-HasProfile-{class: Customers, as: customer}-IsFromCountry->{Class: Countries, as: country}
+RETURN $pathelements
+```
+![Alt text](img/odb_eg_9.png)
+```
+python odb_eg_9.py
+[{"Friend_RID": "#45:0", "Friend_Name": "Frank", "Friend_Surname": "OrientDB", "Customer_RID": "#122:0", "Customer_OrederedId": 2, "FriendIsFrom": "Italy"}, {"Friend_RID": "#41:0", "Friend_Name": "Luca", "Friend_Surname": "OrientDB", "Customer_RID": "#123:0", "Customer_OrederedId": 3, "FriendIsFrom": "Italy"}, {"Friend_RID": "#42:0", "Friend_Name": "Luigi", "Friend_Surname": "OrientDB", "Customer_RID": "#124:0", "Customer_OrederedId": 4, "FriendIsFrom": "Italy"}, {"Friend_RID": "#43:0", "Friend_Name": "Santo", "Friend_Surname": "OrientDB", "Customer_RID": "#126:0", "Customer_OrederedId": 6, "FriendIsFrom": "Italy"}, {"Friend_RID": "#42:1", "Friend_Name": "Andrey", "Friend_Surname": "OrientDB", "Customer_RID": "#125:0", "Customer_OrederedId": 5, "FriendIsFrom": "Ukraine"}]
+```
+
 ## Author
 * **Ishafizan Ishak**
 
