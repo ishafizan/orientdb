@@ -22,6 +22,8 @@ Python 3.7, orientdb-3.x
 - Example 13: Find top 3 Restaurants with most visits
 - Example 14: Find top 3 Restaurants with most reviews
 - Example 15: Find the top 3 nationality of the tourists that have eaten at Restaurant with Id 26
+- Example 16: Find all Locations connected to Customer with OrderedId 1, and their Reviews (if any)
+- Example 17: Find all Locations visited by Colins's friends
 
 ### create venv
 ```
@@ -135,7 +137,7 @@ python odb_eg_2.py
 ```
 ![Alt text](img/odb_eg_2_rest.png)
 
-### Example 3: [Find Colin's Friends](#Find-Colin's-Friends)
+### Example 3: Find Colin's Friends
 ```
 # SELECT EXPAND( BOTH() ) FROM Profiles WHERE Name = 'Colin' AND Surname='OrientDB' ORDER BY FriendsNumber
 SELECT @rid as Profile_RID, Name, Surname, both('HasFriend').size() AS FriendsNumber FROM `Profiles` ORDER BY FriendsNumber DESC LIMIT 3
@@ -467,6 +469,16 @@ LIMIT 3
 ```
 ```
 python odb_eg_15.py
+[{"Name": "Croatia", "CountryCount": 1}, {"Name": "Madagascar", "CountryCount": 1}, {"Name": "Canada", "CountryCount": 1}]
+```
+
+### Example 16: Find all Locations connected to Customer with OrderedId 1, and their Reviews (if any)
+```
+MATCH {class: Customers, as: c, where: (OrderedId=1)}--{class: Locations, as: loc}-HasReview->{class: Reviews, as: r, optional: true}
+RETURN $pathelements
+```
+```
+python odb_eg_16.py
 [{"Name": "Croatia", "CountryCount": 1}, {"Name": "Madagascar", "CountryCount": 1}, {"Name": "Canada", "CountryCount": 1}]
 ```
 ## Author
