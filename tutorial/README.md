@@ -62,7 +62,7 @@ http://0.0.0.0:2480
 SELECT count(*) as NumberOfProfiles, Birthday.format('yyyy') AS YearOfBirth FROM Profiles GROUP BY YearOfBirth ORDER BY NumberOfProfiles DESC
 ```
 ```
-python profile_eg_1.py
+python odb_eg_1.py
 [
   {
     "NumberOfProfiles": 34,
@@ -95,7 +95,7 @@ SELECT @rid as Profile_RID, Name, Surname, both('HasFriend').size() AS FriendsNu
 ```
 
 ```
-python profile_eg_2.py
+python odb_eg_2.py
 [
   {
     "Profile_RID": "#48:116",
@@ -126,6 +126,7 @@ SELECT @rid as Profile_RID, Name, Surname, both('HasFriend').size() AS FriendsNu
 ```
 ![Alt text](img/odb_eg_3_rest.png)
 ```
+python odb_eg_3.py
 [
   {
     "@type": "d",
@@ -168,7 +169,7 @@ RETURN $pathelements
 ```
 ![Alt text](img/odb_eg_4.png)
 ```
-python profile_eg_4.py
+python odb_eg_4.py
 [
   {
     "Friend_RID": "#41:1",
@@ -194,7 +195,7 @@ RETURN $pathelements
 ```
 ![Alt text](img/odb_eg_2_3.png)
 ```
-python profile_eg_5.py
+python odb_eg_5.py
 [{"Friend_RID":"#45:0","Friend_Name":"Frank","Friend_Surname":"OrientDB","Customer_RID":"#122:0","Customer_OrederedId":2,"FriendIsFrom":"Italy"},{"Friend_RID":"#41:0","Friend_Name":"Luca","Friend_Surname":"OrientDB","Customer_RID":"#123:0","Customer_OrederedId":3,"FriendIsFrom":"Italy"},{"Friend_RID":"#42:0","Friend_Name":"Luigi","Friend_Surname":"OrientDB","Customer_RID":"#124:0","Customer_OrederedId":4,"FriendIsFrom":"Italy"},{"Friend_RID":"#43:0","Friend_Name":"Santo","Friend_Surname":"OrientDB","Customer_RID":"#126:0","Customer_OrederedId":6,"FriendIsFrom":"Italy"},{"Friend_RID":"#42:1","Friend_Name":"Andrey","Friend_Surname":"OrientDB","Customer_RID":"#125:0","Customer_OrederedId":5,"FriendIsFrom":"Ukraine"}]
 ```
 
@@ -205,7 +206,7 @@ RETURN $pathelements
 ```
 ![Alt text](img/odb_eg_2_3.png)
 ```
-python profile_eg_5.py
+python odb_eg_5.py
 [{"Friend_RID":"#45:0","Friend_Name":"Frank","Friend_Surname":"OrientDB","Customer_RID":"#122:0","Customer_OrederedId":2,"FriendIsFrom":"Italy"},{"Friend_RID":"#41:0","Friend_Name":"Luca","Friend_Surname":"OrientDB","Customer_RID":"#123:0","Customer_OrederedId":3,"FriendIsFrom":"Italy"},{"Friend_RID":"#42:0","Friend_Name":"Luigi","Friend_Surname":"OrientDB","Customer_RID":"#124:0","Customer_OrederedId":4,"FriendIsFrom":"Italy"},{"Friend_RID":"#43:0","Friend_Name":"Santo","Friend_Surname":"OrientDB","Customer_RID":"#126:0","Customer_OrederedId":6,"FriendIsFrom":"Italy"},{"Friend_RID":"#42:1","Friend_Name":"Andrey","Friend_Surname":"OrientDB","Customer_RID":"#125:0","Customer_OrederedId":5,"FriendIsFrom":"Ukraine"}]
 ```
 ### Example 2-5: Among Colin's Friends, find the top 3 Customers that placed the highest number of Orders
@@ -228,7 +229,7 @@ LIMIT 3
 ```
 ![Alt text](img/odb_eg_2_3.png)
 ```
-python profile_eg_6.py
+python odb_eg_6.py
 [
   {
     "Customer_OrderedId": 4,
@@ -280,10 +281,37 @@ ORDER BY Friend_Name ASC
 ```
 ![Alt text](img/odb_eg_2_7.png)
 ```
-python profile_eg_7.py
+python odb_eg_7.py
 [{"Friend_RID": "#47:0", "Friend_Name": "Emanuele", "Friend_Surname": "OrientDB"}, {"Friend_RID": "#44:0", "Friend_Name": "Enrico", "Friend_Surname": "OrientDB"}, {"Friend_RID": "#46:0", "Friend_Name": "Gabriele", "Friend_Surname": "OrientDB"}, {"Friend_RID": "#48:0", "Friend_Name": "Paolo", "Friend_Surname": "OrientDB"}, {"Friend_RID": "#43:1", "Friend_Name": "Sergey", "Friend_Surname": "OrientDB"}]
 ```
 
+### Example 2-7: Find the top 3 Countries from where Customers are from
+```
+SELECT
+  Name as CountryName,
+  in('IsFromCountry').size() as NumberOfCustomers
+FROM Countries
+ORDER BY NumberOfCustomers DESC
+LIMIT 3
+```
+
+```
+python odb_eg_7.py
+[
+  {
+    "CountryName": "Kyrgyzstan",
+    "NumberOfCustomers": 7
+  },
+  {
+    "CountryName": "Madagascar",
+    "NumberOfCustomers": 6
+  },
+  {
+    "CountryName": "Burundi",
+    "NumberOfCustomers": 6
+  }
+]
+```
 
 ## Author
 * **Ishafizan Ishak**
