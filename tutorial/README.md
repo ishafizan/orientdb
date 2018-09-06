@@ -15,6 +15,7 @@ which python
 ### Download orientdb GA Community Edition 3.0.6
 - https://orientdb.com/download-previous/
 - unzip to desired path, start the server
+- when prompted, enter password for root->root123
 ```
 cd <path_to_server>
 ./bin/server.sh
@@ -49,7 +50,7 @@ http://0.0.0.0:2480
 
 ### Queries
 - copy or clone the project
-- edit settings.py
+- edit settings.py where necessary
 ![Alt text](img/odb_settings.png)
 
 
