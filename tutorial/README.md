@@ -258,7 +258,7 @@ python profile_eg_6.py
     ]
   }
 ]
-
+```
 ### Example 2-6: Find all the Friends of Customer identified with OrderedId 1 that are not Customers (so that a product can be proposed)
 ```
 SELECT
