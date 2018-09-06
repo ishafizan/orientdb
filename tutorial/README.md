@@ -19,7 +19,9 @@ Python 3.7, orientdb-3.x
 - Example 10: Find the top 3 Customers in terms of spending
 - Example 11: Find all Attractions connected with Customer with OrderedId: 1
 - Example 12: Find top 3 Hotels that have been booked most times
-- Example 13: Find top 3 Restaurants
+- Example 13: Find top 3 Restaurants with most visits
+- Example 14: Find top 3 Restaurants with most reviews
+- Example 15: Find the top 3 nationality of the tourists that have eaten at Restaurant with Id 26
 
 ### create venv
 ```
@@ -386,7 +388,7 @@ python odb_eg_12.py
 [{"Name": "Hotel Cavallino d'Oro", "Type": "hotel", "NumberOfBookings": 7}, {"Name": "Hotel Felicyta", "Type": "hotel", "NumberOfBookings": 7}, {"Name": "Toules", "Type": "alpine_hut", "NumberOfBookings": 6}]
 ```
 
-### Example 13: Find top 3 Restaurant
+### Example 13: Restaurants with most visits
 ```
 SELECT
   Name, Type, in("HasEaten").size() AS VisitsNumber
@@ -413,6 +415,59 @@ python odb_eg_13.py
     "VisitsNumber": 5
   }
 ]
+```
+
+### Example 14: Restaurants with most reviews
+```
+SELECT
+  Name, Type, out("HasReview").size() AS ReviewNumbers
+FROM `Restaurants`
+ORDER BY ReviewNumbers DESC
+LIMIT 3
+```
+```
+python odb_eg_14.py
+[
+  {
+    "Name": "Pizzeria Il Pirata",
+    "Type": "restaurant",
+    "ReviewNumbers": 4
+  },
+  {
+    "Name": "Antiche Mura",
+    "Type": "pub",
+    "ReviewNumbers": 4
+  },
+  {
+    "Name": "Aglsbodenalm",
+    "Type": "restaurant",
+    "ReviewNumbers": 3
+  }
+]
+```
+
+### Example 15: Find the top 3 nationality of the tourists that have eaten at Restaurant with Id 26
+```
+SELECT
+  Name,
+  count(*) as CountryCount
+FROM (
+  SELECT
+    expand(out('IsFromCountry')) AS countries
+  FROM (
+    SELECT
+      expand(in("HasEaten")) AS customers
+    FROM Restaurants
+    WHERE Id='26'
+    UNWIND customers)
+  UNWIND countries)
+GROUP BY Name
+ORDER BY CountryCount DESC
+LIMIT 3
+```
+```
+python odb_eg_15.py
+[{"Name": "Croatia", "CountryCount": 1}, {"Name": "Madagascar", "CountryCount": 1}, {"Name": "Canada", "CountryCount": 1}]
 ```
 ## Author
 * **Ishafizan Ishak**
