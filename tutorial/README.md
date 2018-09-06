@@ -119,7 +119,7 @@ python odb_eg_2.py
 ```
 ![Alt text](img/odb_eg_2_rest.png)
 
-### Example 2-1: Find Colin's Friends
+### Example 3: Find Colin's Friends
 ```
 # SELECT EXPAND( BOTH() ) FROM Profiles WHERE Name = 'Colin' AND Surname='OrientDB' ORDER BY FriendsNumber
 SELECT @rid as Profile_RID, Name, Surname, both('HasFriend').size() AS FriendsNumber FROM `Profiles` ORDER BY FriendsNumber DESC LIMIT 3
@@ -162,7 +162,7 @@ python odb_eg_3.py
 ]
 ```
 
-### Example 2-2: Find Colin's friends who are also Customers
+### Example 4: Find Colin's friends who are also Customers
 ```
 MATCH {Class: Profiles, as: profile, where: (Name='Colin' AND Surname='OrientDB')}-HasFriend-{Class: Profiles, as: friend}<-HasProfile-{class: Customers, as: customer}
 RETURN $pathelements
@@ -188,7 +188,7 @@ python odb_eg_4.py
   .........
 ```
 
-### Example 2-3: Find Colin's Friends who are also Customers, and the Countries they are from
+### Example 5: Find Colin's Friends who are also Customers, and the Countries they are from
 ```
 MATCH {Class: Profiles, as: profile, where: (Name='Santo' AND Surname='OrientDB')}-HasFriend-{Class: Profiles, as: friend}<-HasProfile-{class: Customers, as: customer}-IsFromCountry->{Class: Countries, as: country}
 RETURN $pathelements
@@ -209,7 +209,7 @@ RETURN $pathelements
 python odb_eg_5.py
 [{"Friend_RID":"#45:0","Friend_Name":"Frank","Friend_Surname":"OrientDB","Customer_RID":"#122:0","Customer_OrederedId":2,"FriendIsFrom":"Italy"},{"Friend_RID":"#41:0","Friend_Name":"Luca","Friend_Surname":"OrientDB","Customer_RID":"#123:0","Customer_OrederedId":3,"FriendIsFrom":"Italy"},{"Friend_RID":"#42:0","Friend_Name":"Luigi","Friend_Surname":"OrientDB","Customer_RID":"#124:0","Customer_OrederedId":4,"FriendIsFrom":"Italy"},{"Friend_RID":"#43:0","Friend_Name":"Santo","Friend_Surname":"OrientDB","Customer_RID":"#126:0","Customer_OrederedId":6,"FriendIsFrom":"Italy"},{"Friend_RID":"#42:1","Friend_Name":"Andrey","Friend_Surname":"OrientDB","Customer_RID":"#125:0","Customer_OrederedId":5,"FriendIsFrom":"Ukraine"}]
 ```
-### Example 2-5: Among Colin's Friends, find the top 3 Customers that placed the highest number of Orders
+### Example 6: Among Colin's Friends, find the top 3 Customers that placed the highest number of Orders
 ```
 SELECT
   OrderedId as Customer_OrderedId,
@@ -263,7 +263,7 @@ python odb_eg_6.py
   }
 ]
 ```
-### Example 2-6: Find all the Friends of Customer identified with OrderedId 1 that are not Customers (so that a product can be proposed)
+### Example 7: Find all the Friends of Customer identified with OrderedId 1 that are not Customers (so that a product can be proposed)
 ```
 SELECT
   @Rid as Friend_RID,
@@ -285,7 +285,7 @@ python odb_eg_7.py
 [{"Friend_RID": "#47:0", "Friend_Name": "Emanuele", "Friend_Surname": "OrientDB"}, {"Friend_RID": "#44:0", "Friend_Name": "Enrico", "Friend_Surname": "OrientDB"}, {"Friend_RID": "#46:0", "Friend_Name": "Gabriele", "Friend_Surname": "OrientDB"}, {"Friend_RID": "#48:0", "Friend_Name": "Paolo", "Friend_Surname": "OrientDB"}, {"Friend_RID": "#43:1", "Friend_Name": "Sergey", "Friend_Surname": "OrientDB"}]
 ```
 
-### Example 2-7: Find the top 3 Countries from where Customers are from
+### Example 8: Find the top 3 Countries from where Customers are from
 ```
 SELECT
   Name as CountryName,
@@ -313,7 +313,7 @@ python odb_eg_8.py
 ]
 ```
 
-### Example 2-8: Find Colins's Friends who are also Customers, and the Countries they are from
+### Example 9: Find Colins's Friends who are also Customers, and the Countries they are from
 ```
 MATCH {Class: Profiles, as: profile, where: (Name='Colin' AND Surname='OrientDB')}-HasFriend-{Class: Profiles, as: friend}<-HasProfile-{class: Customers, as: customer}-IsFromCountry->{Class: Countries, as: country}
 RETURN $pathelements
