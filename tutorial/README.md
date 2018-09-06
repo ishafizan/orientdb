@@ -479,8 +479,8 @@ RETURN $pathelements
 ```
 ```
 python odb_eg_16.py
-[{"Name": "Croatia", "CountryCount": 1}, {"Name": "Madagascar", "CountryCount": 1}, {"Name": "Canada", "CountryCount": 1}]
 ```
+![Alt text](img/odb_eg_16.png)
 ## Author
 * **Ishafizan Ishak**
 
