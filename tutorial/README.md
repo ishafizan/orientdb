@@ -360,7 +360,7 @@ python odb_eg_10.py
 ```
 
 
-### Example 11: Find all Attractions connected with Customer with OrderedId 1:
+### Example 11: Find all Attractions connected with Customer with OrderedId 1
 ```
 MATCH {class: Customers, as: customer, where: (OrderedId=1)}--{Class: Attractions, as: attraction}
 RETURN $pathelements
@@ -369,6 +369,20 @@ RETURN $pathelements
 ```
 python odb_eg_11.py
 [{"@type": "d", "@rid": "#121:0", "@version": 12, "@class": "Customers", "out_HasVisited": ["#177:0", "#178:0", "#179:0", "#180:0"], "out_HasStayed": ["#161:0"], "Phone": "+1400844724", "out_HasEaten": ["#169:0", "#170:0", "#171:0"], "OrderedId": 1, "out_HasProfile": ["#185:0"], "out_IsFromCountry": ["#145:0"], "in_HasCustomer": ["#193:0"], "@fieldTypes": "out_HasVisited=g,out_HasStayed=g,out_HasEaten=g,OrderedId=l,out_HasProfile=g,out_IsFromCountry=g,in_HasCustomer=g"}, {"@type": "d", "@rid": "#103:15", "@version": 14, "@class": "Castles", "in_HasVisited": ["#177:0", "#181:35", "#183:204", "#183:228", "#181:243", "#181:271", "#177:334", "#180:403", "#183:518", "#179:574", "#179:580", "#180:596", "#182:619"], "Type": "castle", "Id": 127, "Name": "Ch\u00e2teau de Montmayeur", "@fieldTypes": "in_HasVisited=g,Id=l"}, {"@type": "d", "@rid": "#121:0", "@version": 12, "@class": "Customers", "out_HasVisited": ["#177:0", "#178:0", "#179:0", "#180:0"], "out_HasStayed": ["#161:0"], "Phone": "+1400844724", "out_HasEaten": ["#169:0", "#170:0", "#171:0"], "OrderedId": 1, "out_HasProfile": ["#185:0"], "out_IsFromCountry": ["#145:0"], "in_HasCustomer": ["#193:0"], "@fieldTypes": "out_HasVisited=g,out_HasStayed=g,out_HasEaten=g,OrderedId=l,out_HasProfile=g,out_IsFromCountry=g,in_HasCustomer=g"}, {"@type": "d", "@rid": "#119:5", "@version": 14, "@class": "ArchaeologicalSites", "in_HasVisited": ["#178:0", "#181:9", "#178:16", "#183:61", "#182:77", "#183:121", "#182:271", "#182:274", "#182:304", "#178:330", "#181:373", "#184:387", "#178:590"], "Type": "archaeological_site", "Id": 47, "Name": "Incisioni rupestri", "@fieldTypes": "in_HasVisited=g,Id=l"}, {"@type": "d", "@rid": "#121:0", "@version": 12, "@class": "Customers", "out_HasVisited": ["#177:0", "#178:0", "#179:0", "#180:0"], "out_HasStayed": ["#161:0"], "Phone": "+1400844724", "out_HasEaten": ["#169:0", "#170:0", "#171:0"], "OrderedId": 1, "out_HasProfile": ["#185:0"], "out_IsFromCountry": ["#145:0"], "in_HasCustomer": ["#193:0"], "@fieldTypes": "out_HasVisited=g,out_HasStayed=g,out_HasEaten=g,OrderedId=l,out_HasProfile=g,out_IsFromCountry=g,in_HasCustomer=g"}, {"@type": "d", "@rid": "#94:7", "@version": 11, "@class": "Monuments", "in_HasVisited": ["#179:0", "#178:150", "#182:153", "#179:267", "#179:278", "#182:315", "#183:365", "#183:566", "#182:594", "#180:607"], "Type": "monument", "Id": 62, "Name": "Statua del Savonarola", "@fieldTypes": "in_HasVisited=g,Id=l"}, {"@type": "d", "@rid": "#121:0", "@version": 12, "@class": "Customers", "out_HasVisited": ["#177:0", "#178:0", "#179:0", "#180:0"], "out_HasStayed": ["#161:0"], "Phone": "+1400844724", "out_HasEaten": ["#169:0", "#170:0", "#171:0"], "OrderedId": 1, "out_HasProfile": ["#185:0"], "out_IsFromCountry": ["#145:0"], "in_HasCustomer": ["#193:0"], "@fieldTypes": "out_HasVisited=g,out_HasStayed=g,out_HasEaten=g,OrderedId=l,out_HasProfile=g,out_IsFromCountry=g,in_HasCustomer=g"}, {"@type": "d", "@rid": "#105:8", "@version": 11, "@class": "Theatres", "in_HasVisited": ["#180:0", "#183:52", "#184:80", "#183:221", "#177:259", "#180:335", "#179:396", "#183:434", "#177:445", "#183:466"], "Type": "theatre", "Id": 65, "Name": "Teatro Consorziale", "@fieldTypes": "in_HasVisited=g,Id=l"}]
+```
+
+### Example 12: Find top 3 Hotels that have been booked most times
+```
+SELECT
+  Name, Type, in("HasStayed").size() AS NumberOfBookings
+FROM Hotels
+ORDER BY NumberOfBookings DESC
+LIMIT 3
+
+```
+```
+python odb_eg_12.py
+[{"Name": "Hotel Cavallino d'Oro", "Type": "hotel", "NumberOfBookings": 7}, {"Name": "Hotel Felicyta", "Type": "hotel", "NumberOfBookings": 7}, {"Name": "Toules", "Type": "alpine_hut", "NumberOfBookings": 6}]
 ```
 ## Author
 * **Ishafizan Ishak**
