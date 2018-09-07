@@ -48,7 +48,7 @@ cd <path_to_server>
 server credentials in $ORIENTDB_HOME/config/orientdb-server-config.xml
 ```
 ./bin/console.sh
-connect remote:localhost root mypassword
+connect remote:localhost root root123
 list databases
 ```
 ![Alt text](img/odb_console.png)
